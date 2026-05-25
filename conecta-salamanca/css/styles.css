@@ -1,0 +1,633 @@
+/* ==========================================================================
+   1. VARIABLES Y CONFIGURACIÓN DE FUENTES
+   ========================================================================== */
+:root {
+    /* Paleta de colores */
+    --color-bg: #FAFAF8;
+    /* Blanco roto cálido */
+    --color-accent: #C45C2E;
+    /* Terracota (Piedra de Salamanca) */
+    --color-accent-dark: #A14620;
+    /* Terracota oscuro para estados hover */
+    --color-text-main: #1A1A1A;
+    /* Negro suave de alta legibilidad */
+    --color-text-muted: #6B6B6B;
+    /* Gris editorial para subtextos y fechas */
+    --color-border: #E5E5E0;
+    /* Líneas de separación sutiles */
+    --color-white: #FFFFFF;
+
+    /* Fuentes */
+    --font-title: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+
+    /* Maquetación y Espaciados */
+    --max-width: 1140px;
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 7rem;
+}
+
+/* ==========================================================================
+   2. RESET Y ESTILOS BASE (Mucha atención al espacio en blanco)
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    /* 18px para lectura reposada */
+    line-height: 1.65;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Tipografías Editoriales */
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-title);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-text-main);
+}
+
+h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+}
+
+h2 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+p {
+    margin-bottom: 1.25rem;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Contenedor Global */
+.container {
+    width: 100%;
+    max-width: var(--max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+}
+
+/* ==========================================================================
+   3. COMPONENTES COMUNES (Botones sin estridencias)
+   ========================================================================== */
+.btn-primary,
+.btn-secondary,
+.btn-outline {
+    display: inline-block;
+    font-weight: 500;
+    padding: 0.85rem 2rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+}
+
+.btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-accent-dark);
+}
+
+.btn-secondary {
+    background-color: var(--color-text-main);
+    color: var(--color-white);
+}
+
+.btn-secondary:hover {
+    background-color: #333333;
+}
+
+.btn-outline {
+    border-color: var(--color-text-main);
+    color: var(--color-text-main);
+}
+
+.btn-outline:hover {
+    background-color: var(--color-text-main);
+    color: var(--color-white);
+}
+
+/* ==========================================================================
+   4. HEADER & NAVEGACIÓN
+   ========================================================================== */
+.site-header {
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-sm);
+}
+
+.logo {
+    font-family: var(--font-title);
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.logo span {
+    color: var(--color-accent);
+}
+
+.nav-main ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.nav-main a {
+    font-size: 0.95rem;
+    font-weight: 400;
+}
+
+.nav-main a:hover {
+    color: var(--color-accent);
+}
+
+.nav-main .nav-cta {
+    background-color: var(--color-text-main);
+    color: var(--color-white);
+    padding: 0.5rem 1.25rem;
+}
+
+.nav-main .nav-cta:hover {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+}
+
+/* Botón menú móvil (Oculto en desktop) */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0.5rem;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--color-text-main);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ==========================================================================
+   5. SECCIÓN HERO
+   ========================================================================== */
+.hero {
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-xl);
+}
+
+.hero-inner {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: var(--space-lg);
+    align-items: center;
+}
+
+.hero-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-sm);
+}
+
+.hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--color-accent);
+}
+
+.hero-desc {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-md);
+    max-width: 520px;
+}
+
+.hero-visual {
+    position: relative;
+}
+
+.hero-image-wrap {
+    overflow: hidden;
+    background-color: var(--color-border);
+}
+
+.hero-image-wrap img {
+    width: 100%;
+    object-fit: cover;
+    filter: grayscale(15%);
+    /* Look editorial atenuado */
+}
+
+/* Insignia sobria sin bordes gigantes redondos */
+.hero-badge {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background-color: var(--color-text-main);
+    color: var(--color-white);
+    padding: var(--space-sm) var(--space-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.badge-num {
+    font-family: var(--font-title);
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.badge-text {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+}
+
+/* ==========================================================================
+   6. SECCIÓN INTRO
+   ========================================================================== */
+.intro {
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.intro-inner {
+    max-width: 750px;
+    text-align: center;
+}
+
+.intro-quote {
+    font-family: var(--font-title);
+    font-size: 1.75rem;
+    font-style: italic;
+    color: var(--color-text-main);
+    line-height: 1.4;
+}
+
+.intro-divider {
+    width: 40px;
+    height: 1px;
+    background-color: var(--color-accent);
+    margin: var(--space-md) auto;
+}
+
+.intro-body {
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   7. SECCIÓN CATEGORÍAS (Grilla sin sombras, pura geometría)
+   ========================================================================== */
+.categorias {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    background-color: #F5F5F2;
+    /* Ligera variación del blanco roto */
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: var(--space-xs);
+}
+
+.section-sub {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    margin-bottom: var(--space-lg);
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+}
+
+.card {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+}
+
+.card-link {
+    display: block;
+}
+
+.card-img-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+}
+
+.card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* Efecto hover elegante: zoom sutil a la fotografía */
+.card:hover .card-img-wrap img {
+    transform: scale(1.03);
+}
+
+.card-tag {
+    position: absolute;
+    top: var(--space-sm);
+    left: var(--space-sm);
+    background-color: var(--color-bg);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    font-weight: 500;
+}
+
+.card-body {
+    padding: var(--space-md);
+}
+
+.card-body h3 {
+    margin-bottom: var(--space-xs);
+}
+
+.card-body p {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    margin-bottom: var(--space-md);
+    min-height: 75px;
+    /* Mantiene alineación */
+}
+
+.card-cta {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--color-accent);
+}
+
+.card:hover .card-cta {
+    color: var(--color-text-main);
+}
+
+/* ==========================================================================
+   8. SECCIÓN MANIFIESTO
+   ========================================================================== */
+.manifiesto {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.manifiesto-inner {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--space-xl);
+    align-items: center;
+}
+
+.manifiesto-text h2 {
+    margin-bottom: var(--space-md);
+}
+
+.manifiesto-text p {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+}
+
+.manifiesto-nums {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    border-left: 1px solid var(--color-border);
+    padding-left: var(--space-lg);
+}
+
+.stat-num {
+    display: block;
+    font-family: var(--font-title);
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+.stat-label {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   9. CTA FINAL
+   ========================================================================== */
+.cta-final {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    text-align: center;
+}
+
+.cta-inner h2 {
+    margin-bottom: var(--space-xs);
+}
+
+.cta-inner p {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+}
+
+.cta-btns {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+}
+
+/* ==========================================================================
+   10. PIE DE PÁGINA (FOOTER)
+   ========================================================================== */
+.site-footer {
+    background-color: var(--color-text-main);
+    color: #CDCDCD;
+    padding-top: var(--space-lg);
+    font-size: 0.95rem;
+}
+
+.site-footer .logo {
+    color: var(--color-white);
+    margin-bottom: var(--space-xs);
+    display: inline-block;
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid #333333;
+}
+
+.footer-brand p {
+    line-height: 1.5;
+    color: #999999;
+}
+
+.footer-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    text-align: right;
+}
+
+.footer-nav a:hover {
+    color: var(--color-white);
+}
+
+.footer-bottom {
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-sm);
+    font-size: 0.85rem;
+    color: #777777;
+}
+
+/* ==========================================================================
+   11. MEDIA QUERIES (Diseño Responsive Impecable)
+   ========================================================================== */
+
+@media (max-width: 960px) {
+    :root {
+        --space-xl: 4rem;
+    }
+
+    .hero-inner,
+    .manifiesto-inner {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .hero-visual {
+        order: -1;
+        /* La foto pasa arriba en tablet/móvil */
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .manifiesto-nums {
+        border-left: none;
+        border-top: 1px solid var(--color-border);
+        padding-left: 0;
+        padding-top: var(--space-md);
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Menú móvil funcional */
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-main {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-bg);
+        border-bottom: 1px solid var(--color-border);
+        padding: var(--space-md);
+        display: none;
+    }
+
+    .nav-main ul {
+        flex-direction: column;
+        gap: var(--space-sm);
+        text-align: center;
+    }
+
+    .nav-main .nav-cta {
+        display: inline-block;
+        width: 100%;
+    }
+
+    /* Clase activa que inyectará el script JS */
+    .nav-main.nav-open {
+        display: block;
+    }
+
+    /* Grilla de actividades pasa a 1 columna */
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+
+    .footer-nav ul {
+        text-align: left;
+    }
+}
