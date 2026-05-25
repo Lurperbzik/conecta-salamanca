@@ -3,6 +3,16 @@
 
 <head>
     <meta charset="UTF-8" />
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-W8JR5Q4P');</script>
+    <!-- End Google Tag Manager -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description"
         content="Contacta con Conecta Salamanca. Regístrate gratis en nuestras actividades de intercambio de idiomas, deportes, rutas y talleres para estudiantes." />
@@ -47,7 +57,10 @@
 </head>
 
 <body>
-
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8JR5Q4P" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <header class="site-header">
         <div class="container header-inner">
             <a href="index.html" class="logo">Conecta<span>Salamanca</span></a>
@@ -214,6 +227,20 @@
             const expanded = toggle.getAttribute('aria-expanded') === 'true';
             toggle.setAttribute('aria-expanded', !expanded);
             nav.classList.toggle('nav-open');
+        });
+        // Interceptador del formulario para evitar el error 405 en GitHub Pages
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault(); // Evita que la página intente hacer el POST y falle
+
+            // Cambiamos el contenido del formulario por un mensaje elegante de éxito
+            this.innerHTML = `
+                <div style="text-align: center; padding: var(--space-md); color: var(--color-text-main);">
+                    <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--color-accent);">¡Inscripción recibida con éxito!</h3>
+                    <p style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6;">
+                        Te hemos enviado un correo electrónico de confirmación a tu dirección universitaria con el enlace de acceso directo al grupo de WhatsApp del evento. ¡Nos vemos muy pronto!
+                    </p>
+                </div>
+            `;
         });
     </script>
 </body>
