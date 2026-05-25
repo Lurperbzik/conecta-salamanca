@@ -1,0 +1,11 @@
+# https://www.robotstxt.org/
+
+# Permitir que todos los buscadores rastreen todo el sitio
+User-agent: *
+Allow: /
+
+# Evitar que se rastreé la carpeta de estilos o scripts de forma aislada
+Disallow: /css/
+
+# Indicar la ruta absoluta del Sitemap (Crucial para el SEO)
+Sitemap: https://lurperbzik.github.io/conecta-salamanca/sitemap.xml
